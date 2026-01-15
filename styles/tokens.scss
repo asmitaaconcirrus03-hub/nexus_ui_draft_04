@@ -1,0 +1,117 @@
+/**
+ * Design Tokens - Spacing
+ * 
+ * CSS custom properties for the spacing scale.
+ * These values correspond to the TypeScript spacing tokens defined in src/tokens/spacing.ts
+ * 
+ * All spacing values follow an 8px grid system foundation with additional values
+ * for precise design requirements as specified in the Figma design system.
+ * 
+ * Source: Figma Design System
+ * - Scale/Space tokens
+ * - Scale/Padding tokens
+ * 
+ * Figma References:
+ * - https://www.figma.com/design/Q7IkrUEtB2SUAqDUjElOd9/Backup-Files?node-id=5088-5973
+ * - https://www.figma.com/design/Q7IkrUEtB2SUAqDUjElOd9/Backup-Files?node-id=5088-62031
+ * 
+ * Usage:
+ * ```scss
+ * .component {
+ *   padding: var(--spacing-md);
+ *   margin-bottom: var(--spacing-lg);
+ *   gap: var(--spacing-sm);
+ * }
+ * ```
+ * 
+ * Or in JavaScript/TypeScript:
+ * ```typescript
+ * const element = document.querySelector('.component');
+ * element.style.padding = 'var(--spacing-md)';
+ * ```
+ */
+
+:root {
+  /* Spacing Scale - 8px Grid System Foundation */
+  
+  /* 0px - No spacing */
+  --spacing-none: 0px;
+  
+  /* 2px - Extra extra small spacing (fine adjustments) */
+  --spacing-xxs: 2px;
+  
+  /* 4px - Extra small spacing (minimal spacing, half base unit) */
+  --spacing-xs: 4px;
+  
+  /* 8px - Small spacing (base grid unit) */
+  --spacing-sm: 8px;
+  
+  /* 12px - Medium spacing (comfortable spacing) */
+  --spacing-md: 12px;
+  
+  /* 14px - Medium-large spacing (specific design requirement) */
+  --spacing-md-lg: 14px;
+  
+  /* 16px - Large spacing (double base unit) */
+  --spacing-lg: 16px;
+  
+  /* 22px - Extra large spacing (specific design requirement) */
+  --spacing-xl: 22px;
+  
+  /* 24px - 2x large spacing (triple base unit) */
+  --spacing-2xl: 24px;
+  
+  /* 40px - 3x large spacing (major spacing, quintuple base unit) */
+  --spacing-3xl: 40px;
+}
+
+/**
+ * SCSS Map for programmatic access to spacing values
+ * 
+ * This map allows you to access spacing tokens in SCSS using map functions.
+ * 
+ * Example:
+ * ```scss
+ * @use 'tokens' as tokens;
+ * 
+ * .component {
+ *   padding: map-get(tokens.$spacing-scale, 'md');
+ * }
+ * ```
+ */
+$spacing-scale: (
+  'none': 0px,
+  'xxs': 2px,
+  'xs': 4px,
+  'sm': 8px,
+  'md': 12px,
+  'md-lg': 14px,
+  'lg': 16px,
+  'xl': 22px,
+  '2xl': 24px,
+  '3xl': 40px,
+);
+
+/**
+ * SCSS Function to get spacing values
+ * 
+ * @param {string} $key - The spacing token key
+ * @returns {number} The spacing value in pixels
+ * 
+ * Example:
+ * ```scss
+ * @use 'tokens' as tokens;
+ * 
+ * .component {
+ *   padding: tokens.spacing('md'); // 12px
+ *   margin: tokens.spacing('lg'); // 16px
+ * }
+ * ```
+ */
+@function spacing($key) {
+  @if map-has-key($spacing-scale, $key) {
+    @return map-get($spacing-scale, $key);
+  } @else {
+    @error "Invalid spacing key: #{$key}. Valid keys are: #{map-keys($spacing-scale)}";
+  }
+}
